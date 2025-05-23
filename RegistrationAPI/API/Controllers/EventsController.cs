@@ -73,7 +73,7 @@ namespace RegistrationAPI.API.Controllers
             var success = await eventService.UpdateAsync(id, dto, userId, role);
             if (!success) return Forbid();
 
-            return Ok("Updated successfully");
+            return Ok(new { message = "Updated successfully" });
         }
         [Authorize(Roles = "Admin,Organizer")]
         [HttpDelete("{id}")]
@@ -107,5 +107,13 @@ namespace RegistrationAPI.API.Controllers
             var events = await eventService.GetMyEventsAsync(userId);
             return Ok(events);
         }
+        [Authorize(Roles = "Admin,Organizer")]
+        [HttpGet("Deleted")]
+        public async Task<IActionResult> GetDeletedEvents()
+        {
+            var deletedEvents = await eventService.GetAllDeletedEventsAsync();
+            return Ok(deletedEvents);
+        }
+
     }
 }

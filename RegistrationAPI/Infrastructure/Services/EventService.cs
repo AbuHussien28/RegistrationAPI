@@ -91,5 +91,15 @@ namespace RegistrationAPI.Infrastructure.Services
 
             return mapper.Map<List<EventReadDto>>(events);
         }
+        public async Task<List<EventReadDto>> GetAllDeletedEventsAsync()
+        {
+            var deletedEvents = await unitOfWork.Events
+                .GetQueryable()
+                .Where(e => e.IsDeleted)
+                .ToListAsync();
+
+            return mapper.Map<List<EventReadDto>>(deletedEvents);
+        }
+
     }
 }

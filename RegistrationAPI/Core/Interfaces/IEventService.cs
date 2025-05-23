@@ -11,6 +11,7 @@ namespace RegistrationAPI.Core.Interfaces
         Task<bool> DeleteAsync(int id, string userId, string role);
         Task<bool> RestoreAsync(int id, string userId, string role);
         Task<List<EventReadDto>> GetMyEventsAsync(string userId);
+        Task<List<EventReadDto>> GetAllDeletedEventsAsync();
 
     }
 }
