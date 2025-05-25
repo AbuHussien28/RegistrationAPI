@@ -3,15 +3,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using RegistrationAPI.API.Middlewares;
 using RegistrationAPI.Core.Interfaces;
 using RegistrationAPI.Core.Models;
 using RegistrationAPI.Data;
+using RegistrationAPI.Infrastructure.Repositorys;
 using RegistrationAPI.Infrastructure.Services;
 using RegistrationAPI.Infrastructure.UnitOfWorks;
 using RegistrationAPI.Shared.DTOS;
-using Microsoft.OpenApi.Models;
-
 using RegistrationAPI.Shared.Helpers;
 using System.Text;
 
@@ -71,6 +71,8 @@ namespace RegistrationAPI
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IEventService, EventService>();
             builder.Services.AddScoped<IRegistrationService, RegistrationService>();
+            builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
+            builder.Services.AddScoped<IDashboardService, DashboardService>();
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
