@@ -73,6 +73,7 @@ namespace RegistrationAPI
             builder.Services.AddScoped<IRegistrationService, RegistrationService>();
             builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
             builder.Services.AddScoped<IDashboardService, DashboardService>();
+            builder.Services.AddScoped<IProfileService, ProfileService>();
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
@@ -82,6 +83,7 @@ namespace RegistrationAPI
                           .AllowAnyHeader();
                 });
             });
+            builder.Services.AddHttpContextAccessor();
             var app = builder.Build();
             //using (var scope = app.Services.CreateScope())
             //{
