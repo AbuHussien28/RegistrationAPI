@@ -54,5 +54,22 @@ namespace RegistrationAPI.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpGet("current-username")]
+        public async Task<IActionResult> GetCurrentUserName()
+        {
+            try
+            {
+                var username = await _profileService.GetCurrentUserNameAsync();
+                return Ok(new { userName = username });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

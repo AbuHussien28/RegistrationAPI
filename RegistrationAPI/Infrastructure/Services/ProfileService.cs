@@ -65,5 +65,11 @@ namespace RegistrationAPI.Infrastructure.Services
 
             return "Password updated successfully.";
         }
+        public async Task<string> GetCurrentUserNameAsync()
+        {
+            var user = await GetCurrentUserAsync();
+            return user.UserName ?? string.Empty;
+        }
+
     }
 }

@@ -6,5 +6,6 @@ namespace RegistrationAPI.Core.Interfaces
     {
         Task<string> UpdateUserNameAsync(UpdateUserNameDTO model);
         Task<string> UpdatePasswordAsync(UpdatePasswordDTO model);
+        Task<string> GetCurrentUserNameAsync();
     }
 }
