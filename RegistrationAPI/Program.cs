@@ -74,6 +74,7 @@ namespace RegistrationAPI
             builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
             builder.Services.AddScoped<IDashboardService, DashboardService>();
             builder.Services.AddScoped<IProfileService, ProfileService>();
+            builder.Services.AddScoped<IEmailSender, EmailSender>();
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
@@ -110,7 +111,8 @@ namespace RegistrationAPI
         }
         //static async Task SeedRoles(RoleManager<IdentityRole> roleManager)
         //{
-        //    string[] roles = { "Admin", "User", "Organizer" };
+        //    string[] roles = { "Admin", "User
+        //    ", "Organizer" };
 
         //    foreach (var role in roles)
         //    {
