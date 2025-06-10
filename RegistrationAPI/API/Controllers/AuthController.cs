@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RegistrationAPI.Infrastructure.Services;
 using RegistrationAPI.Shared.DTOS;
+using System.Security.Claims;
 
 namespace RegistrationAPI.API.Controllers
 {
@@ -37,6 +38,44 @@ namespace RegistrationAPI.API.Controllers
             if (result.Contains("error") || result.Contains("failed"))
                 return BadRequest(result);
             return Ok(new { Token = result });
+        }
+        [HttpGet("confirm-email")]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            var result = await authService.ConfirmEmailAsync(userId, token);
+
+            if (result.StartsWith("error"))
+                return BadRequest(result);
+
+            return Ok(result);
+        }
+        [HttpGet("is-email-confirmed")]
+        public async Task<IActionResult> IsEmailConfirmed()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userId == null)
+                return Unauthorized();
+
+            var confirmed = await authService.IsEmailConfirmedAsync(userId);
+
+            if (confirmed == null)
+                return NotFound();
+
+            return Ok(new { confirmed });
+        }
+        [HttpPost("resend-confirmation")]
+        public async Task<IActionResult> ResendConfirmation()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+                return Unauthorized();
+
+            var success = await authService.ResendEmailConfirmationAsync(userId);
+            if (!success)
+                return BadRequest("User not found or already confirmed.");
+
+            return Ok("Confirmation email resent.");
         }
 
     }

@@ -6,7 +6,9 @@ namespace RegistrationAPI.Shared.DTOS
     {
         Task<string> RegisterAsync(RegisterDTO model);
         Task<string> LoginAsync(LoginDTO model);
-       
+        Task<string> ConfirmEmailAsync(string userId, string token);
+        Task<bool?> IsEmailConfirmedAsync(string userId);
+        Task<bool> ResendEmailConfirmationAsync(string userId);
 
 
     }

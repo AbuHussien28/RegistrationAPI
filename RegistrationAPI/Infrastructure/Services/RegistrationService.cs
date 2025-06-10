@@ -50,11 +50,11 @@ namespace RegistrationAPI.Infrastructure.Services
             unitOfWork.Registration.AddTODB(registration);
             await unitOfWork.SaveChanges();
            var emailBody = $@"
-        <h2>Hello {user.FullName},</h2>
+        <h2>Hello {user.FullName} </h2>
         <p>You have successfully registered for the event: <strong>{eventEntity.Title}</strong>.</p>
         <p><strong>Date:</strong> {eventEntity.StartDate} to {eventEntity.EndDate}</p>
         <p><strong>Organizer:</strong> {eventEntity.CreatedBy?.UserName ?? "N/A"}</p>
-        <p>Thank you for using our system!</p>";
+        <p>Thank you for using our system </p>";
 
             await emailSender.SendEmailAsync(user.Email, "Event Registration Confirmation", emailBody);
 
